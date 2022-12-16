@@ -108,7 +108,7 @@ class Forcing(ModelConstants):
         self.ds.attrs['name_forcing'] = f'tanh_Tdeep{Tdeep:.1f}_ztcl{ztcl}'
         return self.ds
     
-    def linear(self, S1,T1,z1=2000):
+    def linear(self,S1,T1,S0=34.5,z1=2000):
         """ creates linear forcing profile
         input:
         ztcl    ..  (float)  [m]       thermocline depth
@@ -118,7 +118,6 @@ class Forcing(ModelConstants):
         if z1>0:
             print(f'z-coordinate is postive upwards; z1 was {z1}, now set z1=-{z1}')
             z1 = -z1
-        S0 = 34.5                     # [psu]  reference surface salinity
         T0 = self.l1*S0+self.l2       # [degC] surface freezing temperature
         
         self.ds['Tz'] = T0 + self.ds.z*(T1-T0)/z1 
